@@ -122,10 +122,10 @@ function Index() {
               </p>
             </Reveal>
             <Reveal delay={200}>
-              <h1 className="font-display text-5xl font-black uppercase leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
-                Shraddha
+              <h1 className="hero-name font-display text-6xl font-black uppercase leading-[0.9] tracking-[0.04em] md:text-8xl lg:text-9xl">
+                <span className="hero-name-line" data-text="Shraddha">Shraddha</span>
                 <br />
-                <span className="text-gradient animate-gradient">Goswami</span>
+                <span className="hero-name-line hero-name-accent" data-text="Goswami">Goswami</span>
               </h1>
             </Reveal>
             <Reveal delay={350}>
