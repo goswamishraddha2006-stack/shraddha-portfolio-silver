@@ -102,21 +102,33 @@ function Index() {
         />
         <Particles count={40} />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-[1fr_auto] md:items-center">
-          <div className="space-y-8">
+        <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-12 px-6 md:grid-cols-[1fr_auto] md:items-center">
+          <div className="space-y-7">
             <Reveal>
+              <div className="inline-flex items-center gap-3 rounded-full border border-neon-purple/40 bg-neon-purple/10 px-4 py-1.5 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping-soft rounded-full bg-emerald-400" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                </span>
+                <span className="font-display text-[11px] uppercase tracking-[0.3em] text-foreground/80">
+                  Available for collaborations
+                </span>
+              </div>
+            </Reveal>
+
+            <Reveal delay={100}>
               <p className="font-display text-sm uppercase tracking-[0.4em] text-neon-blue glow-text">
                 — Hello, I&apos;m
               </p>
             </Reveal>
-            <Reveal delay={150}>
+            <Reveal delay={200}>
               <h1 className="font-display text-5xl font-black uppercase leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
                 Shraddha
                 <br />
                 <span className="text-gradient animate-gradient">Goswami</span>
               </h1>
             </Reveal>
-            <Reveal delay={300}>
+            <Reveal delay={350}>
               <div className="text-xl font-medium text-muted-foreground md:text-2xl">
                 I&apos;m a{" "}
                 <TypingText
@@ -137,7 +149,7 @@ function Index() {
                 code and curiosity.
               </p>
             </Reveal>
-            <Reveal delay={600}>
+            <Reveal delay={550}>
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() =>
@@ -157,12 +169,42 @@ function Index() {
                 </button>
               </div>
             </Reveal>
+
+            <Reveal delay={700}>
+              <div className="flex items-center gap-6 pt-2">
+                <div className="text-center">
+                  <div className="font-display text-2xl font-black text-gradient">2nd</div>
+                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Year IMSc-IT</div>
+                </div>
+                <div className="h-8 w-px bg-border" />
+                <div className="text-center">
+                  <div className="font-display text-2xl font-black text-gradient">IEEE</div>
+                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Outreach Chair</div>
+                </div>
+                <div className="h-8 w-px bg-border" />
+                <div className="text-center">
+                  <div className="font-display text-2xl font-black text-gradient">∞</div>
+                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Curiosity</div>
+                </div>
+              </div>
+            </Reveal>
           </div>
 
           <Reveal delay={400}>
-            <div className="relative mx-auto h-72 w-72 md:h-96 md:w-96">
-              <div className="absolute -inset-4 animate-pulse-glow rounded-full bg-gradient-to-br from-neon-purple to-neon-blue opacity-60 blur-2xl" />
-              <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-neon-purple/60 animate-float shadow-[0_0_40px_oklch(0.65_0.27_300/0.6)]">
+            <div className="relative mx-auto h-72 w-72 md:h-[26rem] md:w-[26rem]">
+              <div className="absolute inset-0 animate-spin-slow">
+                <div className="absolute inset-0 rounded-full border border-dashed border-neon-purple/40" />
+                <div className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-neon-pink shadow-[0_0_15px_var(--neon-pink)]" />
+              </div>
+              <div className="absolute inset-6 animate-spin-reverse">
+                <div className="absolute inset-0 rounded-full border border-neon-blue/30" />
+                <div className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-neon-blue shadow-[0_0_12px_var(--neon-blue)]" />
+                <div className="absolute -right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-neon-purple shadow-[0_0_12px_var(--neon-purple)]" />
+              </div>
+
+              <div className="absolute inset-8 animate-pulse-glow rounded-full bg-gradient-to-br from-neon-purple to-neon-blue opacity-50 blur-2xl" />
+
+              <div className="absolute inset-10 overflow-hidden rounded-full border-2 border-neon-purple/60 shadow-[0_0_40px_oklch(0.65_0.27_300/0.6)]">
                 <img
                   src={profileImg}
                   alt="Shraddha Goswami"
@@ -170,14 +212,58 @@ function Index() {
                   height={1024}
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
               </div>
-              {/* corner accents */}
+
+              <div className="absolute -left-4 top-12 animate-float">
+                <div className="glass rounded-full border border-neon-purple/50 px-3 py-1.5 text-xs font-semibold shadow-[0_0_20px_oklch(0.65_0.27_300/0.4)]">
+                  ✦ AI
+                </div>
+              </div>
+              <div className="absolute -right-2 top-1/3 animate-float" style={{ animationDelay: "1s" }}>
+                <div className="glass rounded-full border border-neon-blue/50 px-3 py-1.5 text-xs font-semibold shadow-[0_0_20px_oklch(0.7_0.22_240/0.4)]">
+                  &lt;/&gt; Web
+                </div>
+              </div>
+              <div className="absolute -left-6 bottom-16 animate-float" style={{ animationDelay: "2s" }}>
+                <div className="glass rounded-full border border-neon-pink/50 px-3 py-1.5 text-xs font-semibold shadow-[0_0_20px_oklch(0.7_0.27_340/0.4)]">
+                  ◈ Design
+                </div>
+              </div>
+              <div className="absolute -right-4 bottom-10 animate-float" style={{ animationDelay: "1.5s" }}>
+                <div className="glass rounded-full border border-neon-purple/50 px-3 py-1.5 text-xs font-semibold shadow-[0_0_20px_oklch(0.65_0.27_300/0.4)]">
+                  ❖ Create
+                </div>
+              </div>
+
               <div className="absolute -right-2 -top-2 h-6 w-6 border-r-2 border-t-2 border-neon-pink" />
               <div className="absolute -bottom-2 -left-2 h-6 w-6 border-b-2 border-l-2 border-neon-blue" />
             </div>
           </Reveal>
         </div>
+
+        <div className="absolute inset-x-0 bottom-16 z-10 overflow-hidden border-y border-border/50 bg-background/40 py-3 backdrop-blur-sm">
+          <div className="flex w-max animate-marquee gap-12 whitespace-nowrap font-display text-sm uppercase tracking-[0.3em] text-muted-foreground/70">
+            {Array.from({ length: 2 }).map((_, k) => (
+              <div key={k} className="flex gap-12">
+                {["AI Exploration", "★", "Web Design", "★", "Prompt Engineering", "★", "UI / UX", "★", "Game Dev", "★", "Creative Writing", "★", "Cyberpunk", "★"].map((t, i) => (
+                  <span key={`${k}-${i}`} className={t === "★" ? "text-neon-purple" : ""}>{t}</span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button
+          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+          className="absolute bottom-3 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-1 text-muted-foreground hover:text-neon-purple md:flex"
+          aria-label="Scroll down"
+        >
+          <span className="font-display text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+          <svg width="14" height="20" viewBox="0 0 14 20" fill="none" className="animate-scroll-hint">
+            <path d="M7 1v18M1 13l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
       </section>
 
       {/* ABOUT */}
