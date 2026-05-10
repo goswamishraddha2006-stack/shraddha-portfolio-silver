@@ -200,4 +200,50 @@
     100% { transform: scale(2.5); opacity: 0; }
   }
   .animate-ping-soft { animation: ping-soft 2s ease-out infinite; }
+
+  /* Hero name — futuristic cyberpunk title */
+  .hero-name { font-family: "Orbitron", system-ui, sans-serif; }
+  .hero-name-line {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(180deg, oklch(0.98 0.01 280) 0%, oklch(0.88 0.04 280) 55%, oklch(0.7 0.12 290) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 18px oklch(0.65 0.27 300 / 35%)) drop-shadow(0 0 40px oklch(0.7 0.22 240 / 20%));
+    transition: filter 0.5s ease, letter-spacing 0.5s ease;
+  }
+  .hero-name-accent {
+    background: linear-gradient(110deg, var(--neon-blue) 0%, oklch(0.85 0.18 280) 45%, var(--neon-purple) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: hero-gradient 6s ease infinite;
+    filter: drop-shadow(0 0 22px oklch(0.65 0.27 300 / 55%)) drop-shadow(0 0 48px oklch(0.7 0.22 240 / 35%));
+  }
+  .hero-name-line::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, oklch(1 0 0 / 75%) 50%, transparent 70%);
+    background-size: 250% 100%;
+    background-position: 200% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    pointer-events: none;
+    transition: background-position 1.2s ease;
+  }
+  .hero-name:hover .hero-name-line {
+    letter-spacing: 0.08em;
+    filter: drop-shadow(0 0 28px oklch(0.65 0.27 300 / 75%)) drop-shadow(0 0 60px oklch(0.7 0.22 240 / 45%));
+  }
+  .hero-name:hover .hero-name-line::before {
+    background-position: -100% 0;
+  }
+  @keyframes hero-gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
 }
