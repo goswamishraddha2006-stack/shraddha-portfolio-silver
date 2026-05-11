@@ -487,15 +487,28 @@ function Index() {
       <Section id="creative" eyebrow="07 / Creative" title="Design Showcase">
         <div className="grid gap-6 md:grid-cols-2">
           {[
-            { title: "Earth Day Story", sub: "IEEE Instagram Design", grad: "from-emerald-500/40 to-neon-blue/30", icon: "🌍" },
-            { title: "World No Tobacco Day", sub: "Upcoming Awareness Design", grad: "from-neon-pink/40 to-neon-purple/30", icon: "🚭" },
+            { title: "Earth Day Story", sub: "IEEE Instagram Design", grad: "from-emerald-500/40 to-neon-blue/30", icon: "🌍", img: earthDayImg },
+            { title: "World No Tobacco Day", sub: "Upcoming Awareness Design", grad: "from-neon-pink/40 to-neon-purple/30", icon: "🚭", img: null as string | null },
           ].map((c, i) => (
             <Reveal key={c.title} delay={i * 150}>
               <div className={`glass neon-border group relative aspect-video overflow-hidden rounded-2xl bg-gradient-to-br ${c.grad}`}>
+                {c.img && (
+                  <img
+                    src={c.img}
+                    alt={`${c.title} — ${c.sub}`}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                )}
                 <div className="absolute inset-0 grid-bg opacity-30 transition-opacity group-hover:opacity-50" />
-                <div className="absolute right-6 top-6 text-6xl opacity-30 transition-all duration-500 group-hover:scale-110 group-hover:opacity-60">
-                  {c.icon}
-                </div>
+                {c.img && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent" />
+                )}
+                {!c.img && (
+                  <div className="absolute right-6 top-6 text-6xl opacity-30 transition-all duration-500 group-hover:scale-110 group-hover:opacity-60">
+                    {c.icon}
+                  </div>
+                )}
                 <div className="relative flex h-full flex-col justify-end p-7">
                   <div className="font-display text-xs uppercase tracking-widest text-neon-blue">{c.sub}</div>
                   <h3 className="mt-1 text-2xl font-bold">{c.title}</h3>
