@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
 const skills = {
   Technical: ["HTML", "CSS", "PHP", "Prompt Engineering", "AI Exploration"],
   Creative: ["Creative Writing", "Content Writing", "Designing", "Communication", "Adaptability"],
-  Interests: ["Game Development", "AI & Emerging Tech", "Modern UI Design", "Cyberpunk Aesthetics"],
+  Interests: ["Game Development", "AI & Emerging Tech", "Modern UI Design"],
 };
 
 const education = [
