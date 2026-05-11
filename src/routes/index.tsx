@@ -83,6 +83,21 @@ const interests = [
 function Index() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
+      {/* Global ambient cyberpunk backdrop — subtle, blurred, behind all sections */}
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-[0.06] blur-2xl"
+          style={{ backgroundImage: `url(${heroBg})` }}
+        />
+        <div className="absolute inset-0 grid-bg opacity-[0.12]" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at 15% 10%, oklch(0.3 0.2 290 / 18%), transparent 55%), radial-gradient(ellipse at 85% 90%, oklch(0.3 0.2 240 / 16%), transparent 55%), radial-gradient(ellipse at 50% 50%, transparent 40%, var(--background) 95%)",
+          }}
+        />
+      </div>
       <CursorGlow />
       <Nav />
 
