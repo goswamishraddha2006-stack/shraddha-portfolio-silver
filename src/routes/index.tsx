@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import profileImg from "@/assets/profile.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
+import earthDayImg from "@/assets/earth-day.jpg";
 import { CursorGlow } from "@/components/CursorGlow";
 import { Particles } from "@/components/Particles";
 import { TypingText } from "@/components/TypingText";
