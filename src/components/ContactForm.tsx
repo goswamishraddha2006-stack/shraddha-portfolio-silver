@@ -55,36 +55,37 @@ export function ContactForm({ trigger }: ContactFormProps) {
       return;
     }
 
-    if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY") {
-      toast.error("Email service not configured yet. Add your Web3Forms key.");
+    if (
+      !EMAILJS_SERVICE_ID ||
+      !EMAILJS_TEMPLATE_ID ||
+      !EMAILJS_PUBLIC_KEY ||
+      EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID" ||
+      EMAILJS_TEMPLATE_ID === "YOUR_TEMPLATE_ID" ||
+      EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY"
+    ) {
+      toast.error("Email service not configured yet. Add your EmailJS keys.");
       return;
     }
 
     setLoading(true);
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          from_name: parsed.data.name,
-          replyto: parsed.data.email,
-          subject: `[Portfolio] ${parsed.data.subject}`,
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
           name: parsed.data.name,
           email: parsed.data.email,
+          subject: parsed.data.subject,
           message: parsed.data.message,
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        toast.success("Message sent! I'll reply soon.");
-        formEl.reset();
-        setOpen(false);
-      } else {
-        toast.error(data.message ?? "Failed to send. Try again.");
-      }
-    } catch {
-      toast.error("Network error. Please try again.");
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      );
+      toast.success("Message sent! I'll reply soon.");
+      formEl.reset();
+      setOpen(false);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to send. Try again.";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
