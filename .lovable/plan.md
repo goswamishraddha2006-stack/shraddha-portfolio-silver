@@ -1,41 +1,32 @@
 ## Goal
-Switch the existing contact form (currently scaffolded for Web3Forms) to **EmailJS** so submissions are sent directly through your own Gmail account.
+Switch the contact form back from EmailJS to **Web3Forms**.
 
-## Why EmailJS
-- **200 free emails/month**
-- Sends from your real Gmail (via OAuth) — recipients see your address
-- Full HTML template control on EmailJS dashboard
-- All keys are public/client-safe (designed for browser use)
+## Why Web3Forms
+- **250 free submissions/month**, no signup beyond email verification
+- Single access key, no template setup
+- Submissions delivered straight to your Gmail inbox
+- Sender's email arrives as Reply-To, so you can reply directly
 
-## Changes required
+## Changes
 
-### Code (I'll do this)
-1. **Install** the EmailJS browser SDK: `@emailjs/browser`
+### Code (I'll do)
+1. **Uninstall** `@emailjs/browser` (no longer needed)
 2. **Update** `src/components/ContactForm.tsx`:
-   - Remove the Web3Forms `fetch` call
-   - Replace with `emailjs.send(SERVICE_ID, TEMPLATE_ID, params, { publicKey: PUBLIC_KEY })`
-   - Keep the same Zod validation, honeypot, toast feedback, and cyberpunk styling
-   - Keep the same form fields: name, email, subject, message
-3. Add 3 placeholder constants at the top of the file: `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, `EMAILJS_PUBLIC_KEY` — you'll paste yours in
-4. Show a friendly "not configured yet" toast until the keys are added
+   - Remove `emailjs` import and the three `EMAILJS_*` constants
+   - Add a single `WEB3FORMS_ACCESS_KEY` constant (placeholder `"YOUR_ACCESS_KEY"`)
+   - Replace `emailjs.send(...)` with a `fetch("https://api.web3forms.com/submit", ...)` POST using `FormData` with: `access_key`, `name`, `email`, `subject`, `message`, `replyto` (= sender email), and the honeypot `botcheck`
+   - Keep Zod validation, honeypot, dialog UI, cyberpunk styling, and toast feedback unchanged
+   - Show "not configured yet" toast until the key is added
 
-### Setup (you'll do this once — takes ~3 minutes)
-1. Go to **https://www.emailjs.com** → sign up (free)
-2. **Add Email Service** → choose **Gmail** → connect your Gmail via OAuth → copy the **Service ID**
-3. **Create Email Template**:
-   - To: your Gmail
-   - From name: `{{name}}`
-   - Reply-to: `{{email}}`
-   - Subject: `[Portfolio] {{subject}}`
-   - Body: include `{{name}}`, `{{email}}`, `{{message}}`
-   - Copy the **Template ID**
-4. **Account → General** → copy the **Public Key**
-5. Paste all three values to me — I'll plug them into the component
+### Setup (you do once — ~1 minute)
+1. Visit **https://web3forms.com**
+2. Enter your Gmail → click **Create Access Key** → check inbox to verify
+3. Copy the access key
+4. Paste it into `src/components/ContactForm.tsx` (the `WEB3FORMS_ACCESS_KEY` constant)
 
 ## What stays the same
-- The dialog UI, validation, honeypot, cyberpunk styling, success/error toasts — no visual change
-- The "Email Me" button in the contact section
+Form fields, validation, honeypot, dialog UI, cyberpunk styling, success/error toasts, "Email Me" button.
 
 ## Notes
-- EmailJS public keys are safe in client code (the dashboard restricts allowed domains)
-- Optionally we can lock the key to your published Lovable domain in the EmailJS dashboard for extra spam protection
+- The Web3Forms access key is safe in client code (it can only submit to your verified email)
+- After the first real submission you'll get a confirmation email from Web3Forms

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
 import { z } from "zod";
 import { toast } from "sonner";
 import {
@@ -14,11 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-// EmailJS credentials — get yours at https://www.emailjs.com
-// Public key is safe in client code (restrict allowed domains in EmailJS dashboard)
-const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+// Web3Forms access key — get yours at https://web3forms.com (free, 250 submissions/month)
+// Safe in client code: the key can only deliver to your verified email.
+const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -55,31 +52,30 @@ export function ContactForm({ trigger }: ContactFormProps) {
       return;
     }
 
-    if (
-      !EMAILJS_SERVICE_ID ||
-      !EMAILJS_TEMPLATE_ID ||
-      !EMAILJS_PUBLIC_KEY ||
-      EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID" ||
-      EMAILJS_TEMPLATE_ID === "YOUR_TEMPLATE_ID" ||
-      EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY"
-    ) {
-      toast.error("Email service not configured yet. Add your EmailJS keys.");
+    if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "YOUR_ACCESS_KEY") {
+      toast.error("Email service not configured yet. Add your Web3Forms access key.");
       return;
     }
 
     setLoading(true);
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          name: parsed.data.name,
-          email: parsed.data.email,
-          subject: parsed.data.subject,
-          message: parsed.data.message,
-        },
-        { publicKey: EMAILJS_PUBLIC_KEY },
-      );
+      const payload = new FormData();
+      payload.append("access_key", WEB3FORMS_ACCESS_KEY);
+      payload.append("name", parsed.data.name);
+      payload.append("email", parsed.data.email);
+      payload.append("subject", parsed.data.subject);
+      payload.append("message", parsed.data.message);
+      payload.append("replyto", parsed.data.email);
+      payload.append("botcheck", "");
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: payload,
+      });
+      const json = (await res.json()) as { success?: boolean; message?: string };
+      if (!res.ok || !json.success) {
+        throw new Error(json.message ?? "Failed to send. Try again.");
+      }
       toast.success("Message sent! I'll reply soon.");
       formEl.reset();
       setOpen(false);
