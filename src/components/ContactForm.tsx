@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { z } from "zod";
 import { toast } from "sonner";
 import {
@@ -13,9 +14,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-// Public Web3Forms access key (safe to expose — scoped to recipient inbox, server-rate-limited)
-// Replace with your own key from https://web3forms.com
-const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+// EmailJS credentials — get yours at https://www.emailjs.com
+// Public key is safe in client code (restrict allowed domains in EmailJS dashboard)
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
