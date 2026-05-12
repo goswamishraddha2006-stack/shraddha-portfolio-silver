@@ -1,44 +1,41 @@
 ## Goal
-Wire the "Email Me" button in the Contact section to a contact form that delivers submissions straight to your Gmail inbox — for free, with no backend setup.
+Switch the existing contact form (currently scaffolded for Web3Forms) to **EmailJS** so submissions are sent directly through your own Gmail account.
 
-## Chosen tool: Web3Forms
-- **Free tier:** 250 submissions/month, unlimited forms
-- **No account dashboard required** — just verify your Gmail once and you get an access key
-- **No branding** in emails, no backend code needed
-- Spam protection via honeypot + optional hCaptcha
+## Why EmailJS
+- **200 free emails/month**
+- Sends from your real Gmail (via OAuth) — recipients see your address
+- Full HTML template control on EmailJS dashboard
+- All keys are public/client-safe (designed for browser use)
 
-## What I'll build
+## Changes required
 
-1. **Replace the simple "Email Me" button** with a clean modal/dialog (matching the cyberpunk theme) that opens a contact form with:
-   - Name
-   - Email
-   - Subject
-   - Message
-   - Submit button (with loading state)
+### Code (I'll do this)
+1. **Install** the EmailJS browser SDK: `@emailjs/browser`
+2. **Update** `src/components/ContactForm.tsx`:
+   - Remove the Web3Forms `fetch` call
+   - Replace with `emailjs.send(SERVICE_ID, TEMPLATE_ID, params, { publicKey: PUBLIC_KEY })`
+   - Keep the same Zod validation, honeypot, toast feedback, and cyberpunk styling
+   - Keep the same form fields: name, email, subject, message
+3. Add 3 placeholder constants at the top of the file: `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, `EMAILJS_PUBLIC_KEY` — you'll paste yours in
+4. Show a friendly "not configured yet" toast until the keys are added
 
-2. **Form submission** posts directly to `https://api.web3forms.com/submit` with your access key. Web3Forms forwards the email to your Gmail.
+### Setup (you'll do this once — takes ~3 minutes)
+1. Go to **https://www.emailjs.com** → sign up (free)
+2. **Add Email Service** → choose **Gmail** → connect your Gmail via OAuth → copy the **Service ID**
+3. **Create Email Template**:
+   - To: your Gmail
+   - From name: `{{name}}`
+   - Reply-to: `{{email}}`
+   - Subject: `[Portfolio] {{subject}}`
+   - Body: include `{{name}}`, `{{email}}`, `{{message}}`
+   - Copy the **Template ID**
+4. **Account → General** → copy the **Public Key**
+5. Paste all three values to me — I'll plug them into the component
 
-3. **Validation** with Zod (name, valid email, message length limits) + toast notifications for success/error states.
+## What stays the same
+- The dialog UI, validation, honeypot, cyberpunk styling, success/error toasts — no visual change
+- The "Email Me" button in the contact section
 
-4. **Honeypot field** to block spam bots automatically.
-
-5. **Styling** matches the existing cyberpunk aesthetic (neon purple/blue accents, glass-morphism, glowing focus states).
-
-## What you need to provide
-After I build it, you'll need to:
-1. Go to **https://web3forms.com**
-2. Enter your Gmail address → click "Create Access Key"
-3. Check your Gmail and verify the email
-4. Copy the access key and paste it to me — I'll add it to the form
-
-That's it. No signup, no password, no dashboard.
-
-## Technical details
-- New component: `src/components/ContactForm.tsx` (Dialog + form)
-- Edit `src/routes/index.tsx` to swap the button for a `<Dialog>` trigger
-- Uses existing shadcn `Dialog`, `Input`, `Textarea`, `Button`, `Label`, and `sonner` toast
-- Zod + react-hook-form (already installed) for validation
-- Access key stored as a constant in the component (Web3Forms keys are designed to be public — they're scoped to your email only and rate-limited server-side)
-
-## Alternative (if you prefer)
-If 250/mo isn't enough later, we can swap to **Lovable Cloud + Gmail connector** with no UI changes — same form, different submit handler.
+## Notes
+- EmailJS public keys are safe in client code (the dashboard restricts allowed domains)
+- Optionally we can lock the key to your published Lovable domain in the EmailJS dashboard for extra spam protection
