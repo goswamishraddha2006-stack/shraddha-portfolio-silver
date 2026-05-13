@@ -559,9 +559,11 @@ function Index() {
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <a
-                  href="mailto:goswamishraddha2006@gmail.com"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=goswamishraddha2006@gmail.com"
+                  target="_blank"
+                  rel="noreferrer"
                   className="btn-neon inline-flex items-center justify-center"
-                  aria-label="Email goswamishraddha2006@gmail.com"
+                  aria-label="Open Gmail compose for goswamishraddha2006@gmail.com"
                 >
                   Email Me
                 </a>
