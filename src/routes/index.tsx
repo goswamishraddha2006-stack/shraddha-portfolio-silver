@@ -558,13 +558,12 @@ function Index() {
                 Open to collaborations, learning opportunities, and creative tech adventures.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <ContactForm
-                  trigger={
-                    <button type="button" className="btn-neon">
-                      Email Me
-                    </button>
-                  }
-                />
+                <a
+                  href="mailto:hello@shraddha.dev"
+                  className="btn-neon"
+                >
+                  Email Me
+                </a>
                 <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-neon btn-neon-blue">
                   LinkedIn
                 </a>
