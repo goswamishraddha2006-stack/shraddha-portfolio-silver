@@ -559,7 +559,7 @@ function Index() {
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <a
-                  href="mailto:hello@shraddha.dev"
+                  href="mailto:goswamishraddha2006@gmail.com"
                   className="btn-neon"
                 >
                   Email Me
