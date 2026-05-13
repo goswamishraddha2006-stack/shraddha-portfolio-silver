@@ -561,9 +561,17 @@ function Index() {
                 <a
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=goswamishraddha2006@gmail.com"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer external"
                   className="btn-neon inline-flex items-center justify-center"
                   aria-label="Open Gmail compose for goswamishraddha2006@gmail.com"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.open(
+                      "https://mail.google.com/mail/?view=cm&fs=1&to=goswamishraddha2006@gmail.com",
+                      "_blank",
+                      "noopener,noreferrer"
+                    );
+                  }}
                 >
                   Email Me
                 </a>
