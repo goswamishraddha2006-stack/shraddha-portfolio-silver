@@ -7,7 +7,7 @@ import { Particles } from "@/components/Particles";
 import { TypingText } from "@/components/TypingText";
 import { Reveal } from "@/components/Reveal";
 import { Nav } from "@/components/Nav";
-import { ContactForm } from "@/components/ContactForm";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
