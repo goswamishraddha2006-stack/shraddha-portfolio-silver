@@ -560,9 +560,8 @@ function Index() {
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <a
                   href="mailto:goswamishraddha2006@gmail.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-neon"
+                  className="btn-neon inline-flex items-center justify-center"
+                  aria-label="Email goswamishraddha2006@gmail.com"
                 >
                   Email Me
                 </a>
@@ -573,7 +572,7 @@ function Index() {
               <div className="mx-auto mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-background/40 px-4 py-2 font-mono text-sm backdrop-blur">
                 <span className="text-neon-purple">$</span>
                 <span className="text-muted-foreground">echo</span>
-                <span className="text-emerald-400">&quot;hello@shraddha.dev&quot;</span>
+                <span className="text-emerald-400">&quot;goswamishraddha2006@gmail.com&quot;</span>
               </div>
             </div>
           </div>
