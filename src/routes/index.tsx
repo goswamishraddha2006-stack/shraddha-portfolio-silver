@@ -618,7 +618,7 @@ function Section({
 }
 
 // TODO: Replace with your Web3Forms access key from https://web3forms.com
-const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+const WEB3FORMS_ACCESS_KEY = "874c671d-1589-424e-90f8-7941e02dc0fa";
 
 function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -642,7 +642,7 @@ function ContactForm() {
       return;
     }
 
-    if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "YOUR_ACCESS_KEY_HERE") {
+    if (!WEB3FORMS_ACCESS_KEY) {
       setStatus("error");
       setErrorMsg("Form not configured yet. Add your Web3Forms access key.");
       return;
