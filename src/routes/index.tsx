@@ -560,7 +560,7 @@ function Index() {
               </p>
               <ContactForm />
               <div className="mt-6 flex flex-wrap justify-center gap-4">
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-neon btn-neon-blue">
+                <a href="https://www.linkedin.com/in/shraddha-goswami-b351a1329" target="_blank" rel="noopener noreferrer external" aria-label="Open LinkedIn profile in a new tab" className="btn-neon btn-neon-blue">
                   LinkedIn
                 </a>
               </div>
