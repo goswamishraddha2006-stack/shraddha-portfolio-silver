@@ -558,16 +558,8 @@ function Index() {
               <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
                 Open to collaborations, learning opportunities, and creative tech adventures.
               </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=goswamishraddha2006@gmail.com"
-                  target="_blank"
-                  rel="noopener noreferrer external"
-                  className="btn-neon inline-flex items-center justify-center"
-                  aria-label="Open Gmail compose for goswamishraddha2006@gmail.com"
-                >
-                  Email Me
-                </a>
+              <ContactForm />
+              <div className="mt-6 flex flex-wrap justify-center gap-4">
                 <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-neon btn-neon-blue">
                   LinkedIn
                 </a>
