@@ -642,7 +642,7 @@ function ContactForm() {
       return;
     }
 
-    if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "YOUR_ACCESS_KEY_HERE") {
+    if (!WEB3FORMS_ACCESS_KEY) {
       setStatus("error");
       setErrorMsg("Form not configured yet. Add your Web3Forms access key.");
       return;
