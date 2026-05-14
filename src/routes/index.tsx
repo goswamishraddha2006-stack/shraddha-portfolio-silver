@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import profileImg from "@/assets/profile.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -557,16 +558,8 @@ function Index() {
               <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
                 Open to collaborations, learning opportunities, and creative tech adventures.
               </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=goswamishraddha2006@gmail.com"
-                  target="_blank"
-                  rel="noopener noreferrer external"
-                  className="btn-neon inline-flex items-center justify-center"
-                  aria-label="Open Gmail compose for goswamishraddha2006@gmail.com"
-                >
-                  Email Me
-                </a>
+              <ContactForm />
+              <div className="mt-6 flex flex-wrap justify-center gap-4">
                 <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-neon btn-neon-blue">
                   LinkedIn
                 </a>
@@ -621,5 +614,144 @@ function Section({
         {children}
       </div>
     </section>
+  );
+}
+
+// TODO: Replace with your Web3Forms access key from https://web3forms.com
+const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+
+function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("from_name", "Portfolio Contact Form");
+    formData.append("subject", `New message from ${formData.get("name") ?? "visitor"}`);
+
+    // Honeypot — Web3Forms ignores submissions where botcheck is filled
+    if (formData.get("botcheck")) {
+      setStatus("success");
+      form.reset();
+      return;
+    }
+
+    if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "YOUR_ACCESS_KEY_HERE") {
+      setStatus("error");
+      setErrorMsg("Form not configured yet. Add your Web3Forms access key.");
+      return;
+    }
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+        setErrorMsg(data.message || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMsg("Network error. Please try again.");
+    }
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto mt-8 grid w-full max-w-xl gap-4 text-left"
+      noValidate
+    >
+      {/* Honeypot field — hidden from users */}
+      <input
+        type="checkbox"
+        name="botcheck"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden="true"
+      />
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <label className="group block">
+          <span className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-neon-purple">
+            Name
+          </span>
+          <input
+            type="text"
+            name="name"
+            required
+            maxLength={100}
+            placeholder="Your name"
+            className="w-full rounded-xl border border-border/60 bg-background/40 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground/60 backdrop-blur transition-all focus:border-neon-purple focus:shadow-[0_0_20px_rgba(168,85,247,0.35)] focus:outline-none"
+          />
+        </label>
+        <label className="group block">
+          <span className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-neon-blue">
+            Email
+          </span>
+          <input
+            type="email"
+            name="email"
+            required
+            maxLength={255}
+            placeholder="you@email.com"
+            className="w-full rounded-xl border border-border/60 bg-background/40 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground/60 backdrop-blur transition-all focus:border-neon-blue focus:shadow-[0_0_20px_rgba(56,189,248,0.35)] focus:outline-none"
+          />
+        </label>
+      </div>
+
+      <label className="group block">
+        <span className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-neon-pink">
+          Message
+        </span>
+        <textarea
+          name="message"
+          required
+          rows={5}
+          maxLength={2000}
+          placeholder="Tell me about your project, idea, or just say hi..."
+          className="w-full resize-none rounded-xl border border-border/60 bg-background/40 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground/60 backdrop-blur transition-all focus:border-neon-pink focus:shadow-[0_0_20px_rgba(236,72,153,0.35)] focus:outline-none"
+        />
+      </label>
+
+      <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="btn-neon inline-flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {status === "loading" ? "Sending..." : "Send Message"}
+        </button>
+
+        {status === "success" && (
+          <p
+            role="status"
+            className="font-mono text-sm text-emerald-400 [text-shadow:0_0_10px_rgba(52,211,153,0.6)]"
+          >
+            ✓ Message sent! I&apos;ll reply soon.
+          </p>
+        )}
+        {status === "error" && (
+          <p
+            role="alert"
+            className="font-mono text-sm text-red-400 [text-shadow:0_0_10px_rgba(248,113,113,0.6)]"
+          >
+            ✕ {errorMsg}
+          </p>
+        )}
+      </div>
+    </form>
   );
 }
