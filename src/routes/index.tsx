@@ -84,6 +84,7 @@ const interests = [
 ];
 
 function Index() {
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
       {/* Global ambient cyberpunk backdrop — subtle, blurred, behind all sections */}
@@ -516,8 +517,13 @@ function Index() {
                 <div className="relative flex h-full flex-col justify-end p-7">
                   <div className="font-display text-xs uppercase tracking-widest text-neon-blue">{c.sub}</div>
                   <h3 className="mt-1 text-2xl font-bold">{c.title}</h3>
-                  <button className="mt-3 inline-flex w-fit items-center gap-2 rounded-full border border-foreground/20 bg-background/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest backdrop-blur transition-all group-hover:border-neon-purple group-hover:bg-neon-purple/20">
-                    View design →
+                  <button
+                    type="button"
+                    onClick={() => c.img && setLightbox({ src: c.img, alt: `${c.title} — ${c.sub}` })}
+                    disabled={!c.img}
+                    className="mt-3 inline-flex w-fit items-center gap-2 rounded-full border border-foreground/20 bg-background/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest backdrop-blur transition-all group-hover:border-neon-purple group-hover:bg-neon-purple/20 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {c.img ? "View design →" : "Coming soon"}
                   </button>
                 </div>
               </div>
@@ -525,6 +531,31 @@ function Index() {
           ))}
         </div>
       </Section>
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setLightbox(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.alt}
+        >
+          <button
+            type="button"
+            onClick={() => setLightbox(null)}
+            aria-label="Close"
+            className="absolute right-5 top-5 z-10 grid h-11 w-11 place-items-center rounded-full border border-neon-purple/50 bg-background/60 text-xl text-foreground shadow-[0_0_20px_rgba(168,85,247,0.5)] backdrop-blur transition-all hover:scale-110 hover:border-neon-purple hover:bg-neon-purple/20 hover:shadow-[0_0_30px_rgba(168,85,247,0.8)]"
+          >
+            ✕
+          </button>
+          <img
+            src={lightbox.src}
+            alt={lightbox.alt}
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[90vh] max-w-[92vw] rounded-2xl border border-neon-purple/40 object-contain shadow-[0_0_60px_rgba(168,85,247,0.4)] animate-in zoom-in-95 fade-in duration-300"
+          />
+        </div>
+      )}
 
       {/* INTERESTS */}
       <Section id="interests" eyebrow="08 / Exploration" title="What Excites Me">
