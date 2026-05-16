@@ -84,6 +84,7 @@ const interests = [
 ];
 
 function Index() {
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
       {/* Global ambient cyberpunk backdrop — subtle, blurred, behind all sections */}
