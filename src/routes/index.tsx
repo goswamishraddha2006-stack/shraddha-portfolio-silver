@@ -105,7 +105,7 @@ function Index() {
       <Nav />
 
       {/* HERO */}
-      <section id="home" className="relative flex min-h-screen items-center pt-24">
+      <section id="home" className="relative flex min-h-screen flex-col pt-24">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{ backgroundImage: `url(${heroBg})` }}
@@ -120,7 +120,8 @@ function Index() {
         />
         <Particles count={40} />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-12 px-6 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="relative z-10 flex flex-1 items-center">
+          <div className="mx-auto grid w-full max-w-7xl gap-12 px-6 md:grid-cols-[1fr_auto] md:items-center">
           <div className="space-y-7">
             <Reveal>
               <div className="inline-flex items-center gap-3 rounded-full border border-neon-purple/40 bg-neon-purple/10 px-4 py-1.5 backdrop-blur-md">
@@ -168,7 +169,7 @@ function Index() {
               </p>
             </Reveal>
             <Reveal delay={550}>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 mb-16 md:mb-24">
                 <button
                   onClick={() =>
                     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
@@ -258,9 +259,10 @@ function Index() {
               <div className="absolute -bottom-2 -left-2 h-6 w-6 border-b-2 border-l-2 border-neon-blue" />
             </div>
           </Reveal>
+          </div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-16 z-10 overflow-hidden border-y border-border/50 bg-background/40 py-3 backdrop-blur-sm">
+        <div className="relative z-10 w-full overflow-hidden border-y border-border/50 bg-background/40 py-3 backdrop-blur-sm">
           <div className="flex w-max animate-marquee gap-12 whitespace-nowrap font-display text-sm uppercase tracking-[0.3em] text-muted-foreground/70">
             {Array.from({ length: 2 }).map((_, k) => (
               <div key={k} className="flex gap-12">
@@ -274,7 +276,7 @@ function Index() {
 
         <button
           onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-          className="absolute bottom-3 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-1 text-muted-foreground hover:text-neon-purple md:flex"
+          className="relative z-10 mx-auto mt-2 hidden flex-col items-center gap-1 text-muted-foreground hover:text-neon-purple md:flex"
           aria-label="Scroll down"
         >
           <span className="font-display text-[10px] uppercase tracking-[0.3em]">Scroll</span>
